@@ -84,7 +84,7 @@
       <projectile tile="water_dragsub_wave" animation="water_dragsub_wave" offsetX="-5" speed="6" hitEffect="splash" knockback="10" underwater="true" pierce="true"/>
     </attack>
   </vehicle>
-  <item id="water_dragsub" type="object" cost="0" weight="100" icon="water_dragsub.ico" durability="750" durabilityName="common.health" durabilityIcon="vehicle_health" element="water">
+  <item id="water_dragsub" type="animal" cost="0" weight="100" icon="water_dragsub.ico" durability="750" durabilityName="common.health" durabilityIcon="vehicle_health" element="water">
     <action id="plant" name="vehicle.deploy" object="water_dragsub" onGrass="false" overlapBlueprints="true" overlapStructures="true" underwater="only" inVehicle="true">
       <action>
         object.setHealth(this.getFeed()); object.name = this.getNameStr(); d = Item.getParameter(this.getNameStr(), "p"); f = Item.getParameter(this.getNameStr(), "f"); if(f != null) object.setFuel(Std.parseInt(f));
