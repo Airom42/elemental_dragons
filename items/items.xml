@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dragons>
+	<tilesheet id="icons.png" width="16" height="10"/>
+	<tile id="earth_dragomech.ico" sheet="icons.png" x="0"/>
+	<tile id="earth_dragon_armor.ico" sheet="icons.png" x="1"/>
+	<tile id="adult_earth_dragon.ico" sheet="icons.png" x="2" />
+	<tile id="water_dragon_armor.ico" sheet="icons.png" x="3"/>
+	<tile id="adult_water_dragon.ico" sheet="icons.png" x="4" />
+	<tile id="water_dragsub.ico" sheet="icons.png" x="5" />
+	<tile id="plant_dragon_armor.ico" sheet="icons.png" x="6"/>
+	<tile id="adult_plant_dragon.ico" sheet="icons.png" x="7" />
+	<tile id="ice_dragon_armor.ico" sheet="icons.png" x="8"/>
+	<tile id="adult_ice_dragon.ico" sheet="icons.png" x="9" />
+	<tile id="dragsub_membrane.ico" sheet="icons.png" x="10" />
+
+	<include id="dragarmors.xml" includeRoot="true"/>
+	<tile id="water_dragon_armor" sheet="dragarmors.png" x="0"/>
+	<tile id="earth_dragon_armor" sheet="dragarmors.png" x="56"/>
+	<tile id="plant_dragon_armor" sheet="dragarmors.png" x="112"/>
+	<tile id="ice_dragon_armor" sheet="dragarmors.png" x="168"/>
+
+	<item id="item_dragon_base" type="none" durability="8000" cost="0" weight="60" slot="familiar" action="equip">
+		<action id="feed" alt="feed_all" /><action id="rename" />
+		<repair id="blood_gem" value="250" /><recipe type="dragon_feed" />
+	</item>
+
+	<animation id="equipment.base_dragon_armor.idle" equals="equipment.dragon_armor.idle" />
+	<animation id="equipment.base_dragon_armor.walk" equals="equipment.dragon_armor.walk" />
+	<animation id="equipment.base_dragon_armor.fly.self" equals="equipment.dragon_armor.fly.self" />
+	<animation id="equipment.base_dragon_armor.death" equals="equipment.dragon_armor.death" />
+	<animation id="equipment.base_dragon_armor.hover.self" equals="equipment.dragon_armor.fly.self" />
+	<item id="base_dragon_armor" type="none" slot="armor" cost="0" durability="1000" durabilityName="common.enchantment" weight="20" defense="3" retransform="alter_gem" hair="false" action="equip"><action id="rename" /></item>
+
+	<!-- WATER DRAGON -->
+	<familiar id="adult_water_dragon" type="flying" costPerSecond="1" element="water">
+		<attack type="breath" damage="4" range="16" repeat="2" animation="hover_fire" sfx="dragon_atk" cost="12">
+			<projectile tile="water_breath"  speed="3" frames="8" breakTile="2" breakPower="4" scaleTo="3" offsetX="-33" offsetY="-5" hitEffect="splash" underwater="true"/>
+		</attack>
+	</familiar>
+	<item id="adult_water_dragon" extends="item_dragon_base" type="animal" icon="adult_water_dragon.ico" oxygen="50">
+		<action id="plant" name="vehicle.deploy" object="fly_adult_water_dragon" onGrass="false" overlapBlueprints="true" overlapStructures="true" underground="false" underwater="true" inVehicle="true">
+			<action>
+				object.setFuel(this.getFeed()); object.name = this.getNameStr(); f = Item.getParameter(this.getNameStr(), "f"); if(f != null) object.setHealth(Std.parseInt(f));
+			</action>
+		</action>
+		<familiar id="adult_water_dragon" tile="adult_water_dragon" animation="adult_dragon" />
+		<food id="toothfish" value="50" />
+		<food id="rockfish" value="100" />
+		<food id="coral_cod" value="300" />
+	</item>
+	<item id="water_dragon_armor" extends="base_dragon_armor" type="equipment" icon="water_dragon_armor.ico" broken="adult_water_dragon" element="water" oxygen="50">
+		<action id="transform" into="adult_water_dragon" />
+		<flight height="8" cost="0" speed="5" maxWeight="700"><equipCost durability="1" /></flight><use slot="head" />
+	</item>
+
+	<item id="dragsub.membrane" type="none" slot="subsystem" equipOn="water_dragsub" cost="0" weight="0" icon="dragsub_membrane.ico" max_depth="200" />
+
+	<recipe id="dragsub_membrane" creates="dragsub.membrane" type="water_dragsub">
+		<item id="alter_gem" count="1"/>
+		<item id="crystal_shard" count="5"/>
+	</recipe>
+
+	<!-- EARTH DRAGON -->
+	<item id="adult_earth_dragon" type="animal" cost="0" weight="60" durability="10000" icon="adult_earth_dragon.ico">
+		<action id="feed" alt="feed_all" /><action id="rename" />
+		<repair id="blood_gem" value="250" /><recipe type="dragon_feed" />
+		<action id="plant" name="vehicle.deploy" object="ride_adult_earth_dragon" onGrass="false" overlapBlueprints="true" overlapStructures="true" removeBushes="false" underground="true" underwater="false" inVehicle="true">
+			<action>
+				object.setFuel(this.getFeed()); object.name = this.getNameStr(); f = Item.getParameter(this.getNameStr(), "f"); if(f != null) object.setHealth(Std.parseInt(f));
+			</action>
+		</action>
+	</item>
+	<item id="earth_dragon_armor" extends="base_dragon_armor" type="equipment" icon="earth_dragon_armor.ico" broken="adult_earth_dragon" element="earth" defense="5" reflect="1" capacity="100">
+		<action id="transform" into="adult_earth_dragon" /><use slot="head" />
+	</item>
+
+	<!-- PLANT DRAGON -->
+	<familiar id="adult_plant_dragon" type="flying" element="plant" collect="0"/>
+	<item id="adult_plant_dragon" extends="item_dragon_base" type="animal" icon="adult_plant_dragon.ico">
+		<equipCost stamina="-5" health="-5" durability="-30" daylight="true" full="false" /><light tile="light.default" color="bafa66"/>
+		<action id="plant" name="vehicle.deploy" object="fly_adult_plant_dragon" onGrass="true" overlapBlueprints="true" overlapStructures="true" removeBushes="false" underground="false" underwater="false" inVehicle="true">
+			<action>
+				object.setFuel(this.getFeed()); object.name = this.getNameStr(); f = Item.getParameter(this.getNameStr(), "f"); if(f != null) object.setHealth(Std.parseInt(f));
+			</action>
+		</action>
+		<familiar id="adult_plant_dragon" tile="adult_plant_dragon" animation="adult_dragon" />
+	</item>
+ <item id="plant_dragon_armor" extends="base_dragon_armor" type="equipment" icon="plant_dragon_armor.ico" broken="adult_plant_dragon" element="plant">
+	 <action id="transform" into="adult_plant_dragon" /><equipCost stamina="-5" durability="-2" daylight="true" /><light tile="light.default" color="bafa66" />
+	 <flight height="8" cost="0" speed="5" maxWeight="700"><equipCost durability="1" /></flight><use slot="head" />
+ </item>
+
+	<!-- ICE DRAGON -->
+	<familiar id="adult_ice_dragon" type="flying" costPerSecond="1" element="ice">
+		<attack type="breath" damage="4" range="14" repeat="2" animation="hover_fire" sfx="dragon_atk" cost="12">
+			<projectile tile="ice_breath" speed="4" frames="8" breakTile="2" breakPower="3" scaleTo="3" offsetX="-33" offsetY="-5" hitEffect="freeze"/>
+		</attack>
+	</familiar>
+	<item id="adult_ice_dragon" extends="item_dragon_base" type="animal" icon="adult_ice_dragon.ico">
+		<action id="plant" name="vehicle.deploy" object="fly_adult_ice_dragon" onGrass="false" overlapBlueprints="true" overlapStructures="true" removeBushes="false" underground="false" underwater="false" inVehicle="true">
+			<action>
+				object.setFuel(this.getFeed()); object.name = this.getNameStr(); f = Item.getParameter(this.getNameStr(), "f"); if(f != null) object.setHealth(Std.parseInt(f));
+			</action>
+		</action>
+		<familiar id="adult_ice_dragon" tile="adult_ice_dragon" animation="adult_dragon" />
+	</item>
+	<item id="ice_dragon_armor" extends="base_dragon_armor" type="equipment" icon="ice_dragon_armor.ico" broken="adult_ice_dragon" element="ice" defense="2">
+		<action id="transform" into="adult_ice_dragon" /><hitEffect id="freeze" />
+		<flight height="15" cost="0" speed="7" maxWeight="500"><equipCost durability="1" /></flight><use slot="head" />
+	</item>
+
+	<item id="alter_gem" extends="alter_gem" extendAppend="true">
+		<action extends="transform_other">
+			<transform from="adult_water_dragon" to="water_dragon_armor" />
+			<transform from="adult_earth_dragon" to="earth_dragon_armor" />
+			<transform from="adult_plant_dragon" to="plant_dragon_armor" />
+			<transform from="adult_ice_dragon" to="ice_dragon_armor" />
+		</action>
+	</item>
+	<item id="evo_gem" extends="evo_gem" extendAppend="true">
+		<action extends="transform_other">
+			<transform from="adult_water_dragon" to="water_dragsub" />
+			<transform from="adult_earth_dragon" to="earth_dragomech" />
+			<transform from="adult_plant_dragon" to="plant_dragcave_seed" />
+			<!-- <transform from="adult_ice_dragon" to="" /> -->
+		</action>
+	</item>
+	<item id="water_gem" extends="water_gem">
+		<modifyTransform from="young_dragon" to="adult_water_dragon" />
+	</item>
+	<item id="earth_gem" extends="earth_gem">
+		<modifyTransform from="young_dragon" to="adult_earth_dragon" />
+	</item>
+	<item id="plant_gem" extends="plant_gem">
+		<modifyTransform from="young_dragon" to="adult_plant_dragon" />
+	</item>
+	<item id="ice_gem" extends="ice_gem">
+		<modifyTransform from="young_dragon" to="adult_ice_dragon" />
+	</item>
+</dragons>

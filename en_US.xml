@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<lang id="en_US">
+	<section id="item.names">
+		<text id="adult_dragon">Adult Fire Dragon</text>
+		<text id="dragon_armor">Fire Dragon Armor</text>
+		<text id="dragomech">Fire Dragomech</text>
+		<text id="adult_water_dragon">Adult Water Dragon</text>
+		<text id="water_dragon_armor">Water Dragon Armor</text>
+		<text id="water_dragsub">Dragon Sub</text>
+		<text id="adult_earth_dragon">Adult Earth Dragon</text>
+		<text id="earth_dragon_armor">Earth Dragon Armor</text>
+		<text id="earth_dragomech">Earth Dragomech</text>
+		<text id="adult_plant_dragon">Adult Plant Dragon</text>
+		<text id="plant_dragon_armor">Plant Dragon Armor</text>
+		<text id="plant_dragcave_seed">Plant Dragcave Seed</text>
+		<text id="adult_ice_dragon">Adult Ice Dragon</text>
+		<text id="ice_dragon_armor">Ice Dragon Armor</text>
+		<text id="dragsub.membrane">Hi-Pressure Membrane</text>
+	</section>
+	<section id="alchemist">
+	 <text id="dragcave1">In my research, I have been wondering what might happen if you cross a [item=plant_gem] with an [item=adult_dragon]? Might you bring me the materials to try it out?</text>
+	 <text id="dragcave2">Amazing! I was able to create a new lifeform!</text>
+	 <text id="dragcave3">Try combining gems with [item=young_dragon]s in the dragcave! After you do that, try experimenting like I did to create the [item=plant_dragcave_seed]!</text>
+	</section>
+	<section id="quests">
+		 <text id="evolve_plant_dragcave">Dragon Materials</text>
+	</section>
+	<section id="quest.description">
+		 <text id="evolve_plant_dragcave">needs materials for an experiment.</text>
+	</section>
+</lang>

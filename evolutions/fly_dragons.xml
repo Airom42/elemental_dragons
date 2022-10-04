@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>
+	<element id="water_dragon" icon="water.ico"><resist id="fire" /><resist id="earth" /><resist id="water" /><critical id="fire" /><critical id="earth" /></element>
+	<vehicle id="adult_dragon_base" animation="adult_dragon" fps="10" underground="false" includeName="true" fuelName="rations" tooltip="structure.tooltip.fly_dragon" bgm="voyage" death_sfx="dragon_death" walk_sfx="dragon_wings" hoverWalk="true" landOnWater="true" explodeCliff="false" waterLine="38">
+		  <player x="0" y="0" animation="ride" movement="player.ride.adult_dragon" />
+			<recipe type="dragon_feed" /><repair id="blood_gem" value="250" />
+	</vehicle>
+
+	<vehicle id="fly_adult_water_dragon" extends="adult_dragon_base" oxygen="200" underwater="true" fuel="8000" title="itemName('adult_water_dragon', this.name)" health="500" defense="3" tile="adult_water_dragon" speed="3" max_weight="750" flight_height="10" element="water_dragon" icon="adult_water_dragon.ico">
+		<attack type="breath" damage="6" range="16" repeat="2" animation="fire" state="standing" sfx="dragon_atk" cost="10">
+			<projectile tile="water_breath" speed="2" frames="8" breakTile="2" breakPower="4" scaleTo="3" offsetX="-40" offsetY="8" hitEffect="splash" underwater="true"/>
+		</attack>
+		<attack type="breath" damage="6" range="16" repeat="2" animation="hover_fire" sfx="dragon_atk" cost="10" >
+			<projectile tile="water_breath" speed="2" frames="8" breakTile="2" breakPower="4" scaleTo="3" offsetX="-30" offsetY="-5" hitEffect="splash" underwater="true"/>
+		</attack>
+		<listItem title="vehicle.pack_up">
+			<closeWindows /><action>this.dismount();</action>
+			<invokeLater><section if="player.vehicle == null">
+				<action>player.inventory.addAll(this.inventory);</action><remove object="this" />
+				<item id="adult_water_dragon" value="this.fuel" name="this.name"><parameter id="f" value="Std.string(this.health)" /></item>
+			</section></invokeLater>
+		</listItem>
+	</vehicle>
+
+	<vehicle id="ride_adult_earth_dragon" type="mining" fuel="10000" title="itemName('adult_earth_dragon', this.name)" mine="4" mineFuel="2" includeName="true" fuelName="rations" health="2000" defense="6" tile="adult_earth_dragon" speed="2" max_weight="4000" tooltip="structure.tooltip.fly_dragon" element="earth" icon="adult_earth_dragon.ico">
+		<player x="5" y="-19" animation="ride" movement="player.ride.adult_dragon" />
+		<recipe type="dragon_feed" />
+		<attack type="breath" damage="6" range="16" repeat="2" animation="fire" sfx="dragon_atk" cost="10">
+			<projectile tile="earth_breath" speed="2" frames="8" breakTile="3" breakPower="6" scaleTo="3" offsetX="-40" offsetY="0" >
+				  <hitEffect tile="rock_projectile" animation="rock_projectile.impact" color="665000" />
+			</projectile>
+		</attack>
+		<listItem title="vehicle.pack_up">
+			<closeWindows /><action>this.dismount();</action>
+			<invokeLater><section if="player.vehicle == null">
+				<action>player.inventory.addAll(this.inventory);</action><remove object="this" />
+				<item id="adult_earth_dragon" value="this.fuel" name="this.name"><parameter id="f" value="Std.string(this.health)" /></item>
+			</section></invokeLater>
+		</listItem>
+	</vehicle>
+
+	<vehicle id="fly_adult_plant_dragon" type="flying" extends="adult_dragon_base" efficiency="0.5" fuel="8000" title="itemName('adult_plant_dragon', this.name)" health="500" defense="3" tile="adult_plant_dragon" speed="3" flight_height="10" max_weight="750" element="plant" icon="adult_plant_dragon.ico">
+		<attack type="breath" damage="6" range="16" repeat="2" animation="fire" state="standing" sfx="dragon_atk" cost="10">
+			<projectile tile="spore" animation="spore" speed="2" offsetX="-40" offsetY="8" hitEffect="vines"/>
+		</attack>
+		<attack type="breath" damage="6" range="16" repeat="2" animation="hover_fire" sfx="dragon_atk" cost="10">
+			<projectile tile="spore" animation="spore" speed="2" offsetX="-30" offsetY="-5" hitEffect="vines"/>
+		</attack>
+		<listItem title="vehicle.pack_up">
+			<closeWindows /><action>this.dismount();</action>
+			<invokeLater><section if="player.vehicle == null">
+				<action>player.inventory.addAll(this.inventory);</action><remove object="this" />
+				<item id="adult_plant_dragon" value="this.fuel" name="this.name"><parameter id="f" value="Std.string(this.health)" /></item>
+			</section></invokeLater>
+		</listItem>
+	</vehicle>
+
+	<vehicle id="fly_adult_ice_dragon" type="flying" extends="adult_dragon_base" efficiency=".2" fps="12" fuel="7000" title="itemName('adult_ice_dragon', this.name)" health="500" defense="2" tile="adult_ice_dragon" speed="9" flight_height="40" max_weight="500" element="ice" icon="adult_ice_dragon.ico">
+		<attack type="breath" damage="5" range="15" repeat="2" animation="fire" state="standing" sfx="dragon_atk" cost="10">
+			<projectile tile="ice_breath" speed="4" frames="8" breakTile="2" breakPower="4" scaleTo="3" offsetX="-40" offsetY="8" hitEffect="freeze"/>
+		</attack>
+		<attack type="breath" damage="5" range="15" repeat="2" animation="hover_fire" sfx="dragon_atk" cost="10">
+			<projectile tile="ice_breath" speed="4" frames="8" breakTile="2" breakPower="4" scaleTo="3" offsetX="-30" offsetY="-5" hitEffect="freeze"/>
+		</attack>
+		<listItem title="vehicle.pack_up">
+			<closeWindows /><action>this.dismount();</action>
+			<invokeLater><section if="player.vehicle == null">
+				<action>player.inventory.addAll(this.inventory);</action><remove object="this" />
+				<item id="adult_ice_dragon" value="this.fuel" name="this.name"><parameter id="f" value="Std.string(this.health)" /></item>
+			</section></invokeLater>
+		</listItem>
+	</vehicle>
+</data>

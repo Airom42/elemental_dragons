@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>
+  <include id="fly_dragons.xml" />
+  <include id="sheet.xml"/>
+  <!-- EARTH -->
+  <tile id="earth_dragomech" sheet="sheet.1"/>
+
+  <animation id="earth_dragomech.body" x="0" count="10"/><animation id="earth_dragomech.arm" x="20" count="1" />
+  <animation id="earth_dragomech.idle" x="22" count="1" length="10"><append tile="earth_dragomech" animation="earth_dragomech.body" behind="true" /><append tile="earth_dragomech" animation="earth_dragomech.arm" behind="true" /></animation>
+  <animation id="earth_dragomech.walk" x="23" count="6"><append tile="earth_dragomech" animation="earth_dragomech.body" behind="true" /><append tile="earth_dragomech" animation="earth_dragomech.arm" behind="true" /></animation>
+  <animation id="earth_dragomech.arm.preattack" x="10" count="3" /><animation id="earth_dragomech.arm.attack" x="13" count="7" />
+  <animation id="earth_dragomech.preattack" x="22" count="1" length="3"><append tile="earth_dragomech" animation="earth_dragomech.body" behind="true" /><append tile="earth_dragomech" animation="earth_dragomech.arm.preattack" behind="true" /></animation>
+  <animation id="earth_dragomech.attack" x="22" count="1" length="7"><append tile="earth_dragomech" animation="earth_dragomech.body" behind="true" /><append tile="earth_dragomech" animation="earth_dragomech.arm.attack" behind="true" /></animation>
+  <animation id="earth_dragomech.move" equals="earth_dragomech.walk" />
+  <animation id="earth_dragomech.mine" x="29" count="8" />
+  <animation id="earth_dragomech.mine.fire" x="29" count="8"><append tile="earth_dragomech" animation="earth_dragomech.idle" behind="true" /></animation>
+  <animation id="earth_dragomech.breath" equals="earth_dragomech.idle" />
+  <tile id="earth_dragomech.head" sheet="sheet.2" />
+
+  <vehicle id="ride_earth_dragomech" tile="earth_dragomech" health="750" efficiency="0" icon="adult_earth_dragon.ico" block_icon="adult_earth_dragon.ico" speed="3" defense="6" fps="10" max_weight="3000" fuel="8000" tooltip="structure.tooltip.operate" title="itemName('item.names.earth_dragomech', this.name)" includeName="true" underwater="true" death_sfx="alien_death" blood="magic.explosion.med" element="earth" hitDamage="4" tilesBehind="true" allowModifier="true" mine="6" mine_fuel="1" showMine="true" item="earth_dragomech">
+    <repair id="blood_gem" value="250" /><recipe type="dragon_feed" />
+    <listItem title="vehicle.pack_up">
+      <closeWindows /><action>this.dismount(); player.inventory.addAll(this.inventory);</action>
+      <invokeLater>
+        <remove object="this" />
+        <item id="earth_dragomech" value="this.health" name="this.name"><parameter id="f" value="Std.string(this.fuel)" /></item>
+      </invokeLater>
+    </listItem>
+    <tile id="earth_dragomech.head" animation="dragomech.head.idle" fps="10"/>
+    <attack type="beam" damage="15" cut="15" ignoreArmor="true" range="2" top="-35" bottom="-10" cost="0.25" overlap="0.125">
+      <pre><play object="this" animation="preattack" /></pre>
+    </attack>
+    <attack useDefend="true" type="breath" damage="8" range="8" repeat="2" sfx="dragon_atk" element="earth" cost="4" animation="breath">
+      <projectile tile="earth_breath" speed="2" frames="8" breakTile="2" breakPower="4" scaleTo="2" offsetX="-12" offsetY="-38" />
+    </attack>
+    <mount><action>setGameScale(2)</action></mount>
+    <light tile="light.default" color="c3b090" flicker="true" />
+    <ability hotkey="8" icon="bombardment.ico" animation="item6" cost="50" available="this.renderer != null && !this.renderer.attacking">
+      <sound id="orb_spawn" object="this" /><action>this.renderer.attacking = true;</action><play object="this" animation="mine.fire" /><action>this.renderer.attacking = false;</action>
+      <projectile tile="magic_orb" animation="magic_orb.idle" color="00ff00" colorScale="2" speed="3" critical="false" width="16" height="16" damage="15" dx="this.getDX()" dy="0" hit_sfx="orb_impact" homing="true" spawner="player" spawnX="(this.xPos+((this.getFacing() == 1)?-8:this._width-3))/Tile.SIZE" spawnY="(this.yTile-49)/Tile.SIZE" relative="false" range="50" underwater="true">
+        <hitEffect tile="magic_orb" animation="magic_orb.impact" color="00ff00" colorScale="2"/>
+      </projectile>
+    </ability>
+  </vehicle>
+
+  <item id="earth_dragomech" type="object" cost="0" weight="100" icon="earth_dragomech.ico" title="itemName('earth_dragomech', this.name)" includeName="true" durability="750" durabilityName="common.health" durabilityIcon="vehicle_health" element="earth">
+    <action id="plant" name="vehicle.deploy" object="ride_earth_dragomech" onGrass="false" overlapBlueprints="true" overlapStructures="true" removeBushes="false" underground="true" underwater="true" inVehicle="true">
+      <action>
+        object.setHealth(this.getFeed()); object.name = this.getNameStr(); f = Item.getParameter(this.getNameStr(), "f"); if(f != null) object.setFuel(Std.parseInt(f));
+      </action>
+    </action>
+    <action id="feed" alt="feed_all" alt_name="repair_all" name="repair" full="warning.max_repair" auto="common.auto_repair" select="actions.repair" />
+    <food id="blood_gem" value="250" />
+  </item>
+  <item id="dragomech" extends="dragomech" element="fire"/>
+
+  <!-- WATER -->
+  <!-- <tilesheet id="water_dragsub.png" width="64" height="48" name="water_dragsub"/> -->
+  <tile id="water_dragsub" sheet="sheet.3" />
+  <animation id="water_dragsub.idle" x="0" count="5"/>
+  <animation id="water_dragsub.move" x="5" count="5"/>
+  <animation id="water_dragsub.attack" x="10" count="5"/>
+
+  <!-- <tilesheet id="water_dragsub_wave.png" width="13" height="26"/> -->
+  <tile id="water_dragsub_wave" sheet="sheet.4" />
+  <animation id="water_dragsub_wave" count="4" length="2" />
+
+  <vehicle id="water_dragsub" tile="water_dragsub" accessObject="true" health="750" defense="6" speed="5" speedY="3" oxygen="200" max_weight="1250" type="submarine" title="itemName('water_dragsub', this.name)" includeName="true" fuel="4000" fuelName="rations" efficiency="0" dive_sfx="submarine_submerge" death_sfx="alien_death" blood="magic.explosion.med" element="water_dragon" attack_icon="adult_water_dragon.ico" attack_move="true" underwaterDismount="true" item="water_dragsub">
+    <slot id="subsystem" none="structure.tooltip.evolve">
+      <window type="recipes" recipes="water_dragsub" none="common.remove" includeStorehouse="true" title="equipment.subsystem" enabled="var e = this.getEquipment().getItem('subsystem'); return recipe == null || e == null || e.info != recipe.creates.item;">
+        <action>this.getEquipment().forceEquip("subsystem", this, recipe == null?null:recipe.creates.asItem())</action>
+      </window><stop/>
+    </slot>
+    <listItem title="vehicle.pack_up">
+      <closeWindows /><action>player.vehicle.dismount(); player.inventory.addAll(this.inventory);</action>
+      <invokeLater>
+        <remove object="this" />
+        <item id="water_dragsub" value="this.health" name="this.name"><parameter id="f" value="Std.string(this.fuel)" /><parameter id="p" value="this.equipment.getItemId('subsystem')" /></item>
+      </invokeLater>
+    </listItem>
+    <light tile="light.drone.sub" offsetX="10"/>
+    <repair id="blood_gem" value="250" /><recipe type="dragon_feed"/>
+    <attack type="projectile" animation="attack" range="15" cost="25" damage="9" delay="8" scaleCost="false">
+      <projectile tile="water_dragsub_wave" animation="water_dragsub_wave" offsetX="-5" speed="6" hitEffect="splash" knockback="10" underwater="true" pierce="true"/>
+    </attack>
+  </vehicle>
+  <item id="water_dragsub" type="object" cost="0" weight="100" icon="water_dragsub.ico" durability="750" durabilityName="common.health" durabilityIcon="vehicle_health" element="water">
+    <action id="plant" name="vehicle.deploy" object="water_dragsub" onGrass="false" overlapBlueprints="true" overlapStructures="true" underwater="only" inVehicle="true">
+      <action>
+        object.setHealth(this.getFeed()); object.name = this.getNameStr(); d = Item.getParameter(this.getNameStr(), "p"); f = Item.getParameter(this.getNameStr(), "f"); if(f != null) object.setFuel(Std.parseInt(f));
+      </action>
+      <equip eval="d" to="object" fromInventory="false" if="d != null" />
+    </action>
+    <action id="feed" alt="feed_all" alt_name="repair_all" name="repair" full="warning.max_repair" auto="common.auto_repair" select="actions.repair" />
+    <food id="blood_gem" value="250" />
+  </item>
+
+  <!-- PLANT -->
+  <tile id="plant_dragcave" sheet="sheet.5" />
+  <animation id="plant_dragcave.active" x="0" count="1"/>
+  <animation id="plant_dragcave.idle" x="1" count="1"/>
+  <structure id="plant_dragcave" tile="plant_dragcave" type="enchant" slots="1" name="enter" title="structure.tooltip.evolve" removeButton="structure.uproot">
+    <enchant type="dragcave"/>
+    <over><action>this.loopAnimation("active")</action></over>
+    <out><action>this.loopAnimation("idle")</action></out>
+    <removeBy><action>this.onDismantle(player); player.addItem("plant_dragcave_seed");</action></removeBy>
+    <item id="fire_gem" />
+    <item id="water_gem" />
+    <item id="earth_gem" />
+    <item id="ice_gem" />
+    <item id="plant_gem" />
+  </structure>
+
+  <item id="plant_dragcave_seed" type="potion" element="plant" cost="500" weight="10" icon="magic_seed.ico" animation="plant_seed.ico"><action id="plant" structure="plant_dragcave" buildTime="12" /></item>
+
+  <recipe id="evolve_adult_water_dragon" creates="adult_water_dragon" type="dragcave">
+    <type id="no_uncraft" />
+    <item id="dragon" count="1"/>
+    <item id="water_gem" count="1"/>
+  </recipe>
+  <recipe id="evolve_adult_earth_dragon" creates="adult_earth_dragon" type="dragcave">
+    <type id="no_uncraft" />
+    <item id="dragon" count="1"/>
+    <item id="earth_gem" count="1"/>
+  </recipe>
+  <recipe id="evolve_adult_ice_dragon" creates="adult_ice_dragon" type="dragcave">
+    <type id="no_uncraft" />
+    <item id="dragon" count="1"/>
+    <item id="ice_gem" count="1"/>
+  </recipe>
+  <recipe id="evolve_adult_plant_dragon" creates="adult_plant_dragon" type="dragcave">
+    <type id="no_uncraft" />
+    <item id="dragon" count="1"/>
+    <item id="plant_gem" count="1"/>
+  </recipe>
+  <recipe id="evolve_adult_dragon" creates="adult_dragon" type="dragcave">
+    <type id="no_uncraft" />
+    <item id="dragon" count="1"/>
+    <item id="fire_gem" count="1"/>
+  </recipe>
+</data>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mod>
+  <name>Elemental Dragons</name>
+  <description>Adds a dragon evolution for each element!</description>
+  <author>Airom and craigpent</author>
+  <version>3.3.0</version>
+  <requires>Full Version</requires>
+  <init>
+		<include id="enemies/adult_dragons.xml" />
+		<include id="items/items.xml" />
+    <include id="evolutions/evolutions.xml"/>
+    <include id="en_US.xml" includeRoot="true"/>
+
+    <quest id="evolve_plant_dragcave" giver="alchemist" exp="100">
+      <item id="adult_dragon" count="1"/>
+      <item id="evo_gem" count="1"/>
+      <item id="plant_gem" count="1"/>
+    </quest>
+    <npc id="alchemist" extends="alchemist">
+      <operate>
+        <section if="player.hasSeenItem('evo_gem') && player.hasSeenItem('plant_gem') && !player.hasSeenItem('plant_dragcave_seed') && !player.hasQuest('evolve_plant_dragcave')">
+          <dialogue section="alchemist" id="dragcave1" speaker="this"/>
+          <quest id="evolve_plant_dragcave"/>
+        </section>
+        <section if="player.canCompleteQuest('evolve_plant_dragcave')">
+          <dialogue section="alchemist" id="dragcave2" speaker="this"/>
+          <complete quest="evolve_plant_dragcave" />
+          <item id="plant_dragcave_seed" />
+          <dialogue section="alchemist" id="dragcave3" speaker="this"/>
+        </section>
+      </operate>
+    </npc>
+  </init>
+</mod>

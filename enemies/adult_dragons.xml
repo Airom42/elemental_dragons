@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<enemies>
+	<!-- Breath Tiles -->
+  <tilesheet id="dragon_breath.png" width="5" height="5"/>
+  <tile id="water_breath" sheet="dragon_breath.png" x="0"/>
+  <tile id="earth_breath" sheet="dragon_breath.png" x="8"/>
+  <tile id="ice_breath" sheet="dragon_breath.png" x="16"/>
+
+  <include id="adult_dragon_base.xml" includeRoot="true"/>
+  <tile id="adult_water_dragon" sheet="water_dragon.png" x="0" />
+  <tilesheet id="plant_dragon.png" extends="adult_dragon_base" image="plant_dragon.png"/>
+  <tile id="adult_plant_dragon" sheet="plant_dragon.png" x="0"/>
+  <tilesheet id="ice_dragon.png" extends="adult_dragon_base" image="ice_dragon.png"/>
+  <tile id="adult_ice_dragon" sheet="ice_dragon.png" x="0"/>
+
+  <enemy id="adult_dragon_base_enemy" animation="adult_dragon" fps="10" type="dragon" bgm="boss">
+    <sound id="death" value="dragon_death" /><sound id="hit" value="dragon_hit" />
+    <lootSet><loot id="dragonblood" count="5" /></lootSet>
+  </enemy>
+
+	<!-- WATER DRAGON -->
+	<enemy id="adult_water_dragon" extends="adult_dragon_base_enemy" tile="adult_water_dragon" health="50" defense="4" element="water">
+		<lootSet><loot id="water_gem" count="1"/></lootSet>
+		<attack type="breath" damage="6" range="16" repeat="2" animation="fire" state="standing" sfx="dragon_atk">
+			<projectile tile="water_breath" speed="3" frames="8" breakTile="2" breakPower="4" scaleTo="3" offsetX="-40" offsetY="8" hitEffect="splash" underwater="true"/>
+		</attack>
+		<attack type="breath" damage="6" range="16" repeat="2" animation="hover_fire" state="flying" sfx="dragon_atk">
+			<projectile tile="water_breath" speed="3" frames="8" breakTile="2" breakPower="4" scaleTo="3" offsetX="-33" offsetY="-5" hitEffect="splash" underwater="true"/>
+		</attack>
+	</enemy>
+
+	<!-- EARTH DRAGON -->
+  <tilesheet id="earth_dragon.png" width="100" height="30"/>
+	<tile id="adult_earth_dragon" sheet="earth_dragon.png" x="0"/>
+  <animation id="adult_earth_dragon.attack" x="0" count="1" />
+  <animation id="adult_earth_dragon.idle" x="1" count="1"/>
+  <animation id="adult_earth_dragon.move" x="1" count="5" length="3"/>
+
+	<enemy id="adult_earth_dragon" tile="adult_earth_dragon" health="100" defense="5" fps="10" type="dragon" bgm="boss" element="earth">
+		<lootSet><loot id="earth_gem" count="1"/></lootSet><sound id="death" value="dragon_death" /><sound id="hit" value="dragon_hit" />
+		<lootSet><loot id="dragonblood" count="5" /></lootSet>
+		<attack type="breath" damage="6" range="10" repeat="2" animation="fire" state="standing" sfx="dragon_atk">
+			<projectile tile="earth_breath" speed="2" frames="8" breakTile="3" breakPower="6" scaleTo="3" offsetX="-40" offsetY="8" >
+          <hitEffect tile="rock_projectile" animation="rock_projectile.impact" color="665000" />
+      </projectile>
+		</attack>
+	</enemy>
+
+	<!-- PLANT DRAGON-->
+	<enemy id="adult_plant_dragon" extends="adult_dragon_base_enemy" tile="adult_plant_dragon" health="50" defense="4" element="plant">
+		<lootSet><loot id="plant_gem" count="1"/></lootSet>
+		<attack type="breath" damage="6" range="16" repeat="2" animation="fire" state="standing" sfx="dragon_atk">
+			<projectile tile="spore" animation="spore" speed="3" offsetX="-40" offsetY="8" hitEffect="vines"/>
+		</attack>
+		<attack type="breath" damage="6" range="16" repeat="2" animation="hover_fire" state="flying" sfx="dragon_atk">
+			<projectile tile="spore" animation="spore" speed="3" offsetX="-33" offsetY="-5" hitEffect="vines"/>
+		</attack>
+	</enemy>
+
+	<!-- ICE DRAGON -->
+	<enemy id="adult_ice_dragon" extends="adult_dragon_base_enemy" tile="adult_ice_dragon" health="50" defense="4" element="ice">
+		<lootSet><loot id="ice_gem" count="1"/></lootSet>
+		<attack type="breath" damage="6" range="16" repeat="2" animation="fire" state="standing" sfx="dragon_atk">
+			<projectile tile="ice_breath" speed="3" frames="8" breakTile="2" breakPower="4" scaleTo="3" offsetX="-40" offsetY="8" hitEffect="freeze"/>
+		</attack>
+		<attack type="breath" damage="6" range="16" repeat="2" animation="hover_fire" state="flying" sfx="dragon_atk">
+			<projectile tile="ice_breath" speed="3" frames="8" breakTile="2" breakPower="4" scaleTo="3" offsetX="-33" offsetY="-5" hitEffect="freeze"/>
+		</attack>
+	</enemy>
+</enemies>
