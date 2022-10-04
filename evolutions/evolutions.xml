@@ -12,7 +12,7 @@
   <animation id="earth_dragomech.preattack" x="22" count="1" length="3"><append tile="earth_dragomech" animation="earth_dragomech.body" behind="true" /><append tile="earth_dragomech" animation="earth_dragomech.arm.preattack" behind="true" /></animation>
   <animation id="earth_dragomech.attack" x="22" count="1" length="7"><append tile="earth_dragomech" animation="earth_dragomech.body" behind="true" /><append tile="earth_dragomech" animation="earth_dragomech.arm.attack" behind="true" /></animation>
   <animation id="earth_dragomech.move" equals="earth_dragomech.walk" />
-  <animation id="earth_dragomech.mine" x="29" count="8" />
+  <animation id="earth_dragomech.mine" equals="earth_dragomech.attack" />
   <animation id="earth_dragomech.mine.fire" x="29" count="8"><append tile="earth_dragomech" animation="earth_dragomech.idle" behind="true" /></animation>
   <animation id="earth_dragomech.breath" equals="earth_dragomech.idle" />
   <tile id="earth_dragomech.head" sheet="sheet.2" />
@@ -43,7 +43,7 @@
     </ability>
   </vehicle>
 
-  <item id="earth_dragomech" type="object" cost="0" weight="100" icon="earth_dragomech.ico" title="itemName('earth_dragomech', this.name)" includeName="true" durability="750" durabilityName="common.health" durabilityIcon="vehicle_health" element="earth">
+  <item id="earth_dragomech" type="animal" cost="0" weight="100" icon="earth_dragomech.ico" title="itemName('earth_dragomech', this.name)" includeName="true" durability="750" durabilityName="common.health" durabilityIcon="vehicle_health" element="earth">
     <action id="plant" name="vehicle.deploy" object="ride_earth_dragomech" onGrass="false" overlapBlueprints="true" overlapStructures="true" removeBushes="false" underground="true" underwater="true" inVehicle="true">
       <action>
         object.setHealth(this.getFeed()); object.name = this.getNameStr(); f = Item.getParameter(this.getNameStr(), "f"); if(f != null) object.setFuel(Std.parseInt(f));
@@ -84,7 +84,7 @@
       <projectile tile="water_dragsub_wave" animation="water_dragsub_wave" offsetX="-5" speed="6" hitEffect="splash" knockback="10" underwater="true" pierce="true"/>
     </attack>
   </vehicle>
-  <item id="water_dragsub" type="object" cost="0" weight="100" icon="water_dragsub.ico" durability="750" durabilityName="common.health" durabilityIcon="vehicle_health" element="water">
+  <item id="water_dragsub" type="animal" cost="0" weight="100" icon="water_dragsub.ico" durability="750" durabilityName="common.health" durabilityIcon="vehicle_health" element="water">
     <action id="plant" name="vehicle.deploy" object="water_dragsub" onGrass="false" overlapBlueprints="true" overlapStructures="true" underwater="only" inVehicle="true">
       <action>
         object.setHealth(this.getFeed()); object.name = this.getNameStr(); d = Item.getParameter(this.getNameStr(), "p"); f = Item.getParameter(this.getNameStr(), "f"); if(f != null) object.setFuel(Std.parseInt(f));

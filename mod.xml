@@ -3,7 +3,7 @@
   <name>Elemental Dragons</name>
   <description>Adds a dragon evolution for each element!</description>
   <author>Airom and craigpent</author>
-  <version>3.3.0</version>
+  <version>3.3.1</version>
   <requires>Full Version</requires>
   <init>
 		<include id="enemies/adult_dragons.xml" />
