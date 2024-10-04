@@ -127,14 +127,34 @@
 	</item>
 	<item id="water_gem" extends="water_gem">
 		<modifyTransform from="young_dragon" to="adult_water_dragon" />
+		<action id="transform_other" name="transform" consume="true" enabled="player.questComplete('dragon_ship')">
+			<transform from="wyrm" to="dragon" />
+			<transform from="dragon" to="young_dragon" />
+			<transform from="young_dragon" to="adult_water_dragon" />
+		</action>
 	</item>
 	<item id="earth_gem" extends="earth_gem">
 		<modifyTransform from="young_dragon" to="adult_earth_dragon" />
+		<action id="transform_other" name="transform" consume="true" enabled="player.questComplete('dragon_ship')">
+			<transform from="wyrm" to="dragon" />
+			<transform from="dragon" to="young_dragon" />
+			<transform from="young_dragon" to="adult_earth_dragon" />
+		</action>
 	</item>
 	<item id="plant_gem" extends="plant_gem">
 		<modifyTransform from="young_dragon" to="adult_plant_dragon" />
+		<action id="transform_other" name="transform" consume="true" enabled="player.questComplete('dragon_ship')">
+			<transform from="wyrm" to="dragon" />
+			<transform from="dragon" to="young_dragon" />
+			<transform from="young_dragon" to="adult_plant_dragon" />
+		</action>
 	</item>
 	<item id="ice_gem" extends="ice_gem">
 		<modifyTransform from="young_dragon" to="adult_ice_dragon" />
+		<action id="transform_other" name="transform" consume="true" enabled="player.questComplete('dragon_ship')">
+			<transform from="wyrm" to="dragon" />
+			<transform from="dragon" to="young_dragon" />
+			<transform from="young_dragon" to="adult_ice_dragon" />
+		</action>
 	</item>
 </dragons>
